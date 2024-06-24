@@ -27,25 +27,18 @@ class DatabaseSeeder extends Seeder
         Country::create(['name' => 'India']);
         Country::create(['name' => 'United States']);
 
-        State::create(['Country_id' => 1, 'name' => 'Gujarat']);
-        State::create(['Country_id' => 1, 'name' => 'Maharashtra']);
-        State::create(['Country_id' => 1, 'name' => 'Rajasthan']);
-        State::create(['Country_id' => 2, 'name' => 'California']);
-        State::create(['Country_id' => 2, 'name' => 'New York']);
-        State::create(['Country_id' => 2, 'name' => 'Texas']);
-
-        City::create(['state_id' => 1, 'name' => 'Ahmedabad']);
-        City::create(['state_id' => 1, 'name' => 'Surat']);
-        City::create(['state_id' => 2, 'name' => 'Mumbai']);
-        City::create(['state_id' => 2, 'name' => 'Pune']);
-        City::create(['state_id' => 3, 'name' => 'Udaipur']);
-        City::create(['state_id' => 3, 'name' => 'Jaipur']);
-        City::create(['state_id' => 4, 'name' => 'Sacramento']);
-        City::create(['state_id' => 4, 'name' => 'Los Angeles']);
-        City::create(['state_id' => 5, 'name' => 'Albany']);
-        City::create(['state_id' => 5, 'name' => 'New York City']);
-        City::create(['state_id' => 6, 'name' => 'Austin']);
-        City::create(['state_id' => 6, 'name' => 'Houston']);
+        City::create(['country_id' => 1, 'name' => 'Ahmedabad']);
+        City::create(['country_id' => 1, 'name' => 'Surat']);
+        City::create(['country_id' => 1, 'name' => 'Mumbai']);
+        City::create(['country_id' => 1, 'name' => 'Pune']);
+        City::create(['country_id' => 1, 'name' => 'Udaipur']);
+        City::create(['country_id' => 1, 'name' => 'Jaipur']);
+        City::create(['country_id' => 2, 'name' => 'Sacramento']);
+        City::create(['country_id' => 2, 'name' => 'Los Angeles']);
+        City::create(['country_id' => 2, 'name' => 'Albany']);
+        City::create(['country_id' => 2, 'name' => 'New York City']);
+        City::create(['country_id' => 2, 'name' => 'Austin']);
+        City::create(['country_id' => 2, 'name' => 'Houston']);
 
         Tag::create(['name' => 'Laravel', 'slug' => 'laravel']);
         Tag::create(['name' => 'Filament', 'slug' => 'filament']);

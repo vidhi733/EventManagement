@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GallaryController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Country;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,7 +21,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('/events', EventController::class);
-    Route::resource('/gallaries', GallaryController::class);
+    Route::resource('/galleries', GalleryController::class);
+
+    Route::get('/countries/{country}', function (Country $country) {
+        return response()->json($country->cities);
+    });
 });
 
 require __DIR__.'/auth.php';

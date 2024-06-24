@@ -18,8 +18,8 @@
                     <x-nav-link :href="route('events.index')" :active="request()->routeIs('events.index')">
                         {{ __('Events') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('gallaries.index')" :active="request()->routeIs('gallaries.index')">
-                        {{ __('Gallary') }}
+                    <x-nav-link :href="route('galleries.index')" :active="request()->routeIs('galleries.index')">
+                        {{ __('Gallery') }}
                     </x-nav-link>
                 </div>
             </div>

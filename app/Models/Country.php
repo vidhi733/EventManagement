@@ -14,10 +14,11 @@ class Country extends Model
         'name'
     ];
 
-    public function states(): HasMany
+    public function cities(): HasMany
     {
-        return $this->hasMany(State::class);
+        return $this->hasMany(City::class);
     }
+    
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);

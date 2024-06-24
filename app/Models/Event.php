@@ -23,7 +23,6 @@ class Event extends Model
         'address',
         'user_id',
         'country_id',
-        'state_id',
         'city_id',
         'num_tickets',
     ];
@@ -35,10 +34,6 @@ class Event extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
-    }
-    public function state(): BelongsTo
-    {
-        return $this->belongsTo(State::class);
     }
     public function city(): BelongsTo
     {
@@ -61,4 +56,8 @@ class Event extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function hasTag($tag)
+    {
+        return $this->tags->contains($tag);
+    }
 }

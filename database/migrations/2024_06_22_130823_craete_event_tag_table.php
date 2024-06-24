@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('states', function (Blueprint $table) {
+        Schema::create('event_tag', function(Blueprint $table){
             $table->id();
-            $table->foreignId('country_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
+            $table->foreignId('tag_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('states');
+        Schema::dropIfExists('event_tag');
     }
 };

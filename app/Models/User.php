@@ -62,8 +62,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
-    public function bookings(): HasMany
+    public function attendings(): HasMany
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(Attending::class);
     }
 }

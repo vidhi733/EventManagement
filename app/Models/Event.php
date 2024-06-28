@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Mockery\Generator\Method;
 
 class Event extends Model
 {
@@ -25,6 +26,11 @@ class Event extends Model
         'country_id',
         'city_id',
         'num_tickets',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date:d/m/Y',
+        'end_date' => 'date:d/m/Y',
     ];
 
     public function user(): BelongsTo
@@ -47,15 +53,18 @@ class Event extends Model
     {
         return $this->hasMany(Like::class);
     }
-    public function bookings(): HasMany
+    public function savedEvents(): HasMany
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(SavedEvent::class);
+    }
+    public function attendings(): HasMany
+    {
+        return $this->hasMany(Attending::class);
     }
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }
-
     public function hasTag($tag)
     {
         return $this->tags->contains($tag);

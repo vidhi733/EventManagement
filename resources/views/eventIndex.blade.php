@@ -4,7 +4,7 @@
      <div class="container px-6 py-10 mx-auto">
          <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white">All Events</h1>
 
-         <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+         <div class="grid grid-cols-1 gap-8 mt-8 mb-4 md:mt-16 md:grid-cols-2">
              @foreach ($events as $event)
                  <div class="lg:flex bg-gray-200 dark:bg-gray-800 rounded-lg">
                      <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="{{ asset('/storage/'. $event->image) }}" alt="{{ $event->title }}">

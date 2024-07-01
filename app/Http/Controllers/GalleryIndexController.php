@@ -12,7 +12,7 @@ class GalleryIndexController extends Controller
      */
     public function __invoke()
     {
-        $galleries = Gallery::orderBy('created_at','desc')->paginate(5);
+        $galleries = Gallery::orderBy('created_at','desc')->paginate(6);
         return view('galleryIndex',compact('galleries'));
     }
 }

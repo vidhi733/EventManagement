@@ -12,7 +12,7 @@ class EventIndexController extends Controller
      */
     public function __invoke()
     {
-        $events = Event::with('country','state','tags')->orderBy('created_at','desc')->paginate(5);
+        $events = Event::with('country','state','tags')->orderBy('created_at','desc')->paginate(6);
         return view('eventIndex',compact('events'));
     }
 }

@@ -24,6 +24,7 @@ class Event extends Model
         'address',
         'user_id',
         'country_id',
+        'state_id',
         'city_id',
         'num_tickets',
     ];
@@ -40,6 +41,10 @@ class Event extends Model
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
+    }
+    public function state()
+    {
+        return $this->belongsTo(State::class);
     }
     public function city(): BelongsTo
     {

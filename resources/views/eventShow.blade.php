@@ -96,14 +96,14 @@
             </p>
             <p>
                 @foreach ($event->tags as $tag)
-                    <span class="inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-700 p-1 m-1 text-md font-medium text-gray-600 dark:text-gray-300 ring-1 ring-inset ring-gray-500/10">
+                    <span class="mb-2 inline-flex items-center rounded-md bg-gray-50 dark:bg-gray-700 px-1 py-0.3 me-1.5 text-md font-medium text-gray-600 dark:text-gray-300 ring-1 ring-inset ring-gray-500/10">
                         {{ $tag->name }}</span>
                 @endforeach
             </p>
-            <p class="mb-6 mt-4 text-neutral-500 dark:text-neutral-300">
+            <p class="mt-4 text-neutral-500 dark:text-neutral-300" style="overflow-wrap: break-word;">
                 {{ $event->description }}
             </p>
-            <div class="flex pb-4">
+            <div class="flex justify-end">
                 <div class="flex flex-col">
                     <div class="mb-4 flex items-center font-medium">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -113,9 +113,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                         </svg>
-                        <div class="pt-5 flex flex-col text-yellow-700 dark:text-neutral-300">
-                            <div>  {{ $event->country->name }}, {{ $event->city->name }} </div>
-                            <div> {{ $event->address }}</div>
+                        <div class="pt-6 pr-2 flex flex-col text-yellow-700 dark:text-neutral-300">
+                            <div class="text-lg">  {{ $event->country->name }}, {{ $event->city->name }} </div>
+                            <div> {{ $event->address }} </div>
                         </div>
                     </div>
                 </div>
@@ -151,6 +151,7 @@
                                         </div>
                                         <p class="text-sm font-semibold text-gray-400">{{ $comment->content }}</p>
 
+                                       @can('view',$comment)
                                             <form action="{{ route('events.comments.destroy', [$event->id, $comment->id]) }}"
                                                 method="POST">
                                                 @csrf
@@ -158,6 +159,8 @@
                                                 <button
                                                     class="mt-2 rounded-lg bg-red-600 px-4 py-2 text-sm tracking-wider text-white outline-none hover:bg-red-500">Delete</button>
                                             </form>
+                                       @endcan
+
                                     </div>
                                 </div>
                             </div>

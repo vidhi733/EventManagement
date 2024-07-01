@@ -11,14 +11,16 @@ class Country extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'code',
+        'phonecode',
     ];
 
-    public function cities(): HasMany
+    public function states(): HasMany
     {
-        return $this->hasMany(City::class);
+        return $this->hasMany(State::class);
     }
-    
+
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);

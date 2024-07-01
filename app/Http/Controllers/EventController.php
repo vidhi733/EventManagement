@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Models\City;
 use App\Models\Country;
 use App\Models\Event;
+use App\Models\State;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,7 +22,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::with('country')->get();
+        $events = Event::with('country','state')->get();
         return view('events.index',compact('events'));
     }
 
@@ -30,8 +32,10 @@ class EventController extends Controller
     public function create()
     {
         $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
         $tags = Tag::all();
-        return view('events.create', compact('countries','tags'));
+        return view('events.create', compact('countries','states','cities','tags'));
     }
 
     /**
@@ -68,8 +72,10 @@ class EventController extends Controller
     public function edit(Event $event)
     {
         $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
         $tags = Tag::all();
-        return view('events.edit',compact('countries','tags','event'));
+        return view('events.edit',compact('countries','states','cities','tags','event'));
     }
 
     /**

@@ -7,23 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class City extends Model
+class State extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'state_id',
-        'name'
+        'name',
+        'country_id',
     ];
 
-    public function state(): BelongsTo
+    public function cities(): HasMany
     {
-        return $this->belongsTo(State::class);
+        return $this->hasMany(City::class);
+    }
+
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
     }
 
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
     }
-
 }

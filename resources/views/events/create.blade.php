@@ -9,15 +9,32 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <form method="POST" action="{{ route('events.store') }}" x-data="{
+            <form method="POST" action="{{ route('events.store') }}"  x-data="{
                 country: null,
+                state: null,
                 city: null,
+                states: [],
                 cities: [],
                 onCountryChange(event) {
-                    axios.get(`/countries/${event.target.value}`).then(res => {
-                        this.cities = res.data
-                    })
-
+                    axios.get(`/countries/${event.target.value}/states`)
+                        .then(res => {
+                            this.states = res.data;
+                            this.state = null;  // Reset the state and city
+                            this.cities = [];  // Clear cities when country changes
+                        })
+                        .catch(err => {
+                            console.error('Error fetching states:', err);
+                        });
+                },
+                onStateChange(event) {
+                    axios.get(`/states/${event.target.value}/cities`)
+                        .then(res => {
+                            this.cities = res.data;
+                            this.city = null;  // Reset the city
+                        })
+                        .catch(err => {
+                            console.error('Error fetching cities:', err);
+                        });
                 }
             }" enctype="multipart/form-data"
                 class="bg-white dark:bg-slate-800 p-4 rounded-md">
@@ -34,14 +51,14 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="country_id"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
-                            option</label>
+                        <label for="country_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Select a Country
+                        </label>
                         <select id="country_id" x-model="country" x-on:change="onCountryChange" name="country_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option>Choose a country</option>
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">Choose a country</option>
                             @foreach ($countries as $country)
-                                <option :value="{{ $country->id }}">{{ $country->name }}</option>
+                                <option value="{{ $country->id }}">{{ $country->name }}</option>
                             @endforeach
                         </select>
                         @error('country_id')
@@ -49,11 +66,27 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="city_id"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an
-                            option</label>
+                        <label for="state_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Select a State
+                        </label>
+                        <select id="state_id" x-model="state" x-on:change="onStateChange" name="state_id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">Choose a state</option>
+                            <template x-for="state in states" :key="state.id">
+                                <option x-bind:value="state.id" x-text="state.name"></option>
+                            </template>
+                        </select>
+                        @error('state_id')
+                            <div class="text-sm text-red-400">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="city_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Select a City
+                        </label>
                         <select id="city_id" name="city_id"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">Choose a city</option>
                             <template x-for="city in cities" :key="city.id">
                                 <option x-bind:value="city.id" x-text="city.name"></option>
                             </template>
